@@ -82,7 +82,7 @@ const DrawerHeader = () => {
         <GiAlarmClock
           size={23}
           title="Alarm"
-          class={`pen-selection ${
+          className={`pen-selection ${
             highlighted === "icon1" ? "highlighted" : ""
           }`}
           onClick={() => handleClick("icon1")}
@@ -90,7 +90,7 @@ const DrawerHeader = () => {
         <VscCommentDiscussion
           size={23}
           title="Comments"
-          class={`pen-selection ${
+          className={`pen-selection ${
             highlighted === "icon2" ? "highlighted" : ""
           }`}
           onClick={() => handleClick("icon2")}
@@ -98,7 +98,7 @@ const DrawerHeader = () => {
         <BsCameraVideo
           size={23}
           title="Camera"
-          class={`pen-selection ${
+          className={`pen-selection ${
             highlighted === "icon3" ? "highlighted" : ""
           }`}
           onClick={() => handleClick("icon3")}
@@ -106,7 +106,7 @@ const DrawerHeader = () => {
         <BsThreeDots
           size={23}
           title="More"
-          class={`pen-selection ${
+          className={`pen-selection ${
             highlighted === "icon4" ? "highlighted" : ""
           }`}
           onClick={() => handleClick("icon4")}
@@ -114,7 +114,7 @@ const DrawerHeader = () => {
         <BsEmojiSunglasses
           size={23}
           title="Private Mode"
-          class={`pen-selection ${
+          className={`pen-selection ${
             highlighted === "icon5" ? "highlighted" : ""
           }`}
           onClick={() => handleClick("icon5")}
@@ -122,7 +122,7 @@ const DrawerHeader = () => {
         <BsBell
           size={23}
           title="Notifications"
-          class={`pen-selection ${
+          className={`pen-selection ${
             highlighted === "icon6" ? "highlighted" : ""
           }`}
           onClick={() => handleClick("icon6")}

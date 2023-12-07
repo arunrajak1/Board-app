@@ -25,7 +25,6 @@ import DrawerHeader from "./drawerHeader";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import CustomPopover from "./popover";
-import CustomStickyPopover from "./customStickyPopover";
 import Pen from "./pen";
 import { useText } from "./hooks/useText";
 import { useSticky } from "./hooks/useSticky";
@@ -33,10 +32,11 @@ import { useCircle } from "./hooks/useCircle";
 import { useRectangle } from "./hooks/useRectangle";
 import { useImage } from "./hooks/useImage";
 import { useArrow } from "./hooks/useArrow";
+import CustomStickyPopoverMain from "./customStickyPopoverMain";
 // import { handleClear } from "./Function/handleClear";
 // import { handleColorChange } from "./Function/handleColorChange";
 const DrawingArea = () => {
-  const stageRef = useRef(null);
+  const stageRef = React.useRef();
   // hooks for stroing different tools in the array
   const [draw, setDraw] = useState([]);
   const [shape, setShape] = useState("Rectangle");
@@ -49,7 +49,8 @@ const DrawingArea = () => {
 
   const [selectedTool, setSelectedTool] = useState("");
   // hooks for different tool  color
-
+  const [rectanglePositions, setRectanglePositions] = useState([]);
+  //rectangular position 
   // const [lineColor, setLineColor] = useState("#000000");
   const {
     lineColor,
@@ -574,23 +575,30 @@ const DrawingArea = () => {
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
-
-  const handleAddNote = (w, h, shape) => {
+  const handleAddNote = (w, h, shape, color, mouseX, mouseY, event) => {
+    const stage = stageRef.current;
+    if (!stage) {
+      console.error('Stage not found');
+      return;
+    }
+    const position = stage.getPointerPosition();
+  
     setNotes([
       ...notes,
       {
-        x: 100,
-        y: 100,
+        x: position.x,
+        y: position.y,
         width: w,
         height: h,
         shape: shape,
         text: inputText,
         draggable: true,
-        color: selectedColor,
+        color: color,
       },
     ]);
     setInputText("");
   };
+  
   // edit the sticy notes function
   const handleNoteChange = (index, newText) => {
     const updatedNotes = [...notes];
@@ -607,6 +615,8 @@ const DrawingArea = () => {
     // setNotes(res)
   };
 
+    // Function for handling background click
+  
   return (
     <>
       <div
@@ -665,7 +675,7 @@ const DrawingArea = () => {
                 </div>
               </OverlayTrigger>
               {/* stickynotes */}
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 trigger="click"
                 placement="right"
                 overlay={CustomStickyPopover({
@@ -680,7 +690,7 @@ const DrawingArea = () => {
                 >
                   <BsStickyFill />
                 </div>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
 
               <div
                 onClick={() => setSelectedTool("eraser")}
@@ -697,12 +707,23 @@ const DrawingArea = () => {
               >
                 <BiBrush size={20} />
               </div>
-              <div
+              <OverlayTrigger
+                trigger="click"
+                placement="right"
+                overlay={CustomStickyPopoverMain({handleAddNote,stageRef: { stageRef }
+                })}
+                rootClose={true}
+              >
+                 <div
                 style={{ padding: "12px" }}
                 onClick={() => setStickyShow(!stickyShow)}
               >
                 <BsStickyFill />
+                
               </div>
+              </OverlayTrigger>
+             
+              
 
               <div
                 onClick={() => setSelectedTool("rectangle")}
@@ -769,17 +790,17 @@ const DrawingArea = () => {
           </div>
           {/* code for drawing boards */}
           <Stage
-            width={window.innerWidth}
-            height={window.innerHeight}
-            onMouseDown={handleMouseDown}
-            onMousemove={handleMouseMove}
-            onMouseup={handleMouseUp}
-            className="canvas-stage"
-            ref={stageRef}
-            scaleX={scale}
-            scaleY={scale}
-            style={{ background: "white" }}
-          >
+        width={window.innerWidth}
+        height={window.innerHeight}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        className="canvas-stage"
+        ref={stageRef}
+        scaleX={scale}
+        scaleY={scale}
+        style={{ background: "white" }}
+      >
             <Layer>
               {arrows.map((arrow) => (
                 <Arrow
