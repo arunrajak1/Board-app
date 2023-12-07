@@ -1,6 +1,16 @@
-Task Instructions: Implement the stiky feature in whiteboard app
+# Sticky Note Feature
 
-1. First check the Miro app (https://miro.com/index/) sticky note feature 
-2. Like how a user first needs to select a sticky node then user clicks on a place where he wants to draw a note 
-3. and then implement the same feature in the shared whiteboard code and 
-4. after implementing the feature create a repo and push your code on it also attach the working video of the project on your readme 
+Completed the Sticky Note feature .
+
+## Demo
+[Watch Video Demo](https://screenrec.com/share/ywelbrUIjM)
+
+## GitHub Repo
+[GitHub Repository](https://github.com/arunrajak1/Board-app)
+
+## Usage
+1. Clone the repository.
+2. Install dependencies.
+3. Run the application.
+
+Feel free to contribute or report issues!
