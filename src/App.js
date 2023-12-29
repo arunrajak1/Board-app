@@ -8,7 +8,7 @@ const App = () => {
     <HashRouter>
       <Routes>
         // <Route path="*" element={<Dashboard />} />
-        <Route path="/" element={<DrawingArea />} />
+        <Route path="/*" element={<DrawingArea />} />
       </Routes>
     </HashRouter>
   );
